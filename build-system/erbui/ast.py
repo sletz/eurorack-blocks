@@ -753,7 +753,7 @@ class Style (Scope):
 
    @property
    def is_pjs008u (self):
-      return self.name == 'pjs008u'
+      return self.name == 'thonk.pjs008u'
 
 
 
