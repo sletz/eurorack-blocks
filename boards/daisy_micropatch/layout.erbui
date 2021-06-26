@@ -25,7 +25,7 @@ module daisy_micropatch {
 
    control sd Sd {
       position 24.75mm, 40.8518mm
-      style pjs008u
+      style thonk.pjs008u
       pin SD
    }
 
