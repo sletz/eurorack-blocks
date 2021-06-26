@@ -26,7 +26,7 @@ CONTROL_STYLES = (
    'led.3mm.green_red', 'led.3mm.rgb', 'led.3mm.red', 'led.3mm.green', 'led.3mm.yellow', 'led.3mm.orange',
    'thonk.pj398sm.knurled', 'thonk.pj398sm.hex',
    'tl1105', 'ck.d6r.black',
-   'pjs008u',
+   'thonk.pjs008u',
 )
 
 SYMBOLS = (',', '{', '}', '(', ')')
