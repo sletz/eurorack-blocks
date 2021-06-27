@@ -13,14 +13,6 @@
 
 /*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-#if defined (erb_TARGET_DAISY)
-   #include "erb/daisy/SdDaisy.h"
-
-#elif defined (erb_TARGET_VCV_RACK)
-   #include "erb/vcvrack/SdVcv.h"
-
-#endif
-
 
 
 namespace erb
@@ -63,8 +55,6 @@ protected:
 /*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 private:
-
-   SdImpl         _pimpl;
 
 
 

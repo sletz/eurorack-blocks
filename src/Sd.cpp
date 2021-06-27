@@ -43,8 +43,10 @@ bool  Sd::mount ()
    return false; // failed
 
 #elif defined (erb_TARGET_VCV_RACK)
-   // check that the directory exists
+   if (_root.empty ()) return false;
 
+   return access (_root.c_str (), F_OK) == 0;
+   // check that the directory exists
 #endif
 }
 
