@@ -32,7 +32,7 @@ class Sd
 /*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 public:
-   inline         Sd (Filesystem & filesystem);
+                  Sd (Filesystem & filesystem);
    virtual        ~Sd () = default;
 
    bool           mount ();

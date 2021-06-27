@@ -27,6 +27,21 @@ namespace erb
 
 /*
 ==============================================================================
+Name : ctor
+==============================================================================
+*/
+
+#if defined (erb_TARGET_DAISY)
+Filesystem::Filesystem (FATFS & fs)
+:  _fs (fs)
+{
+}
+#endif
+
+
+
+/*
+==============================================================================
 Name : mount
 Description :
    Return 'true' iff mounting the SD card succeeded.

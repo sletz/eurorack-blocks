@@ -36,7 +36,7 @@ class Filesystem
 public:
 
 #if defined (erb_TARGET_DAISY)
-   inline         Filesystem (FATFS & fs);
+                  Filesystem (FATFS & fs);
 #elif defined (erb_TARGET_VCV_RACK)
    inline         Filesystem () = default;
 #endif
