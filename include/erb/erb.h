@@ -25,6 +25,7 @@
 #include "erb/LedBi.h"
 #include "erb/LedRgb.h"
 #include "erb/Pot.h"
+#include "erb/Sd.h"
 #include "erb/SdramObject.h"
 #include "erb/Switch.h"
 

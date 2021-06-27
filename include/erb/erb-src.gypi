@@ -32,6 +32,7 @@
       'CvIn.hpp',
       'CvOut.h',
       'CvOut.hpp',
+      'File.h',
       'FloatRange.h',
       'GateIn.h',
       'GateIn.hpp',
@@ -45,6 +46,7 @@
       'PinType.h',
       'Pot.h',
       'Pot.hpp',
+      'Sd.h',
       'SdramObject.h',
       'SdramObject.hpp',
       'Switch.h',
@@ -66,7 +68,9 @@
       'detail/fnc.hpp',
 
       '../../src/Button.cpp',
+      '../../src/File.cpp',
       '../../src/GateOut.cpp',
+      '../../src/Sd.cpp',
 
       '../../src/detail/Animation.cpp',
       '../../src/detail/Debounce.cpp',
