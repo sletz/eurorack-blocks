@@ -13,6 +13,10 @@
 
 #if defined (erb_TARGET_DAISY)
    #include "sys/fatfs.h"
+
+#elif defined (erb_TARGET_VCV_RACK)
+   #include <unistd.h>
+
 #endif
 
 
@@ -45,8 +49,8 @@ bool  Sd::mount ()
 #elif defined (erb_TARGET_VCV_RACK)
    if (_root.empty ()) return false;
 
-   return access (_root.c_str (), F_OK) == 0;
    // check that the directory exists
+   return access (_root.c_str (), F_OK) == 0;
 #endif
 }
 

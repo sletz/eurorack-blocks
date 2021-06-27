@@ -13,6 +13,10 @@
 
 /*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
+#if defined (erb_TARGET_VCV_RACK)
+#include <string>
+#endif
+
 
 
 namespace erb
@@ -55,6 +59,10 @@ protected:
 /*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 private:
+
+#if defined (erb_TARGET_VCV_RACK)
+   std::string    _root;
+#endif
 
 
 
