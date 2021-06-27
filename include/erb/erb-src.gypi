@@ -33,6 +33,7 @@
       'CvOut.h',
       'CvOut.hpp',
       'File.h',
+      'Filesystem.h',
       'FloatRange.h',
       'GateIn.h',
       'GateIn.hpp',
@@ -69,6 +70,7 @@
 
       '../../src/Button.cpp',
       '../../src/File.cpp',
+      '../../src/Filesystem.cpp',
       '../../src/GateOut.cpp',
       '../../src/Sd.cpp',
 

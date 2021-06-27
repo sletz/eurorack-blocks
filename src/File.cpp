@@ -89,7 +89,7 @@ void  File::open (const char * path_utf8_0, Mode mode)
    _state = (err == FR_OK) ? State::Ok : State::Fail;
 
 #elif defined (erb_TARGET_VCV_RACK)
-   std::string absolute_path = _sd.impl_simulator_root () + path_utf8_0;
+   std::string absolute_path = _sd.impl_root () + path_utf8_0;
 
    _stream.open (absolute_path.c_str (), to_ios_base_openmode (mode));
 #endif
