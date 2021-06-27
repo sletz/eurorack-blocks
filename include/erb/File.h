@@ -64,7 +64,6 @@ public:
    bool           good () const;
    bool           eof () const;
    bool           fail () const;
-   bool           bad () const;
 
    Size           read (void * dst, Size size);
    Size           write (const void * src, Size size);
@@ -92,10 +91,8 @@ private:
 #if defined (erb_TARGET_DAISY)
    enum class State
    {
-      None, Ok, Eof, Fail, Bad
+      None, Ok, Fail
    };
-
-   void           set_state (FRESULT err);
 
    FIL            _fil;
    State          _state = State::None;

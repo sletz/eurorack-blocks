@@ -86,7 +86,7 @@ void  File::open (const char * path_utf8_0, Mode mode)
    BYTE ff_mode = (mode == Mode::Read) ? FA_READ : FA_WRITE;
 
    auto err = f_open (&_fil, path_utf8_0, ff_mode);
-   set_state (err);
+   _state = (err == FR_OK) ? State::Ok : State::Fail;
 
 #elif defined (erb_TARGET_VCV_RACK)
    std::string absolute_path = _sd.impl_simulator_root () + path_utf8_0;
@@ -173,7 +173,7 @@ Name : eof
 bool  File::eof () const
 {
 #if defined (erb_TARGET_DAISY)
-   return _state == State::Eof;
+   return f_eof (&_fil) != 0;
 
 #elif defined (erb_TARGET_VCV_RACK)
    return _stream.eof ();
@@ -204,25 +204,6 @@ bool  File::fail () const
 
 /*
 ==============================================================================
-Name : bad
-==============================================================================
-*/
-
-bool  File::bad () const
-{
-#if defined (erb_TARGET_DAISY)
-   return _state == State::Bad;
-
-#elif defined (erb_TARGET_VCV_RACK)
-   return _stream.bad ();
-
-#endif
-}
-
-
-
-/*
-==============================================================================
 Name : read
 ==============================================================================
 */
@@ -233,7 +214,7 @@ File::Size  File::read (void * dst, Size size)
    Size read_size = 0;
 
    auto err = f_read (&_fil, dst, size, &read_size);
-   set_state (err);
+   _state = (err == FR_OK) ? State::Ok : State::Fail;
 
    return read_size;
 
@@ -259,7 +240,7 @@ File::Size  File::write (const void * src, Size size)
    Size write_size = 0;
 
    auto err = f_write (&_fil, dst, size, &write_size);
-   set_state (err);
+   _state = (err == FR_OK) ? State::Ok : State::Fail;
 
    return write_size;
 
@@ -285,7 +266,8 @@ Name : flush
 void  File::flush ()
 {
 #if defined (erb_TARGET_DAISY)
-   f_sync (&_fil);
+   auto err = f_sync (&_fil);
+   _state = (err == FR_OK) ? State::Ok : State::Fail;
 
 #elif defined (erb_TARGET_VCV_RACK)
    _stream.flush ();
@@ -304,7 +286,8 @@ Name : seek
 void  File::seek (Position pos)
 {
 #if defined (erb_TARGET_DAISY)
-   f_lseek (&_fil, pos);
+   auto err = f_lseek (&_fil, pos);
+   _state = (err == FR_OK) ? State::Ok : State::Fail;
 
 #elif defined (erb_TARGET_VCV_RACK)
    _stream.seekg (pos);
@@ -342,20 +325,6 @@ File::Position File::tell ()
 
 
 /*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
-/*
-==============================================================================
-Name : set_state
-==============================================================================
-*/
-
-#if defined (erb_TARGET_DAISY)
-void  File::set_state (FRESULT err)
-{
-}
-#endif
-
-
 
 /*
 ==============================================================================
