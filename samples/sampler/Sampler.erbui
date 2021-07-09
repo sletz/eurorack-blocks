@@ -1,16 +1,16 @@
 /*****************************************************************************
 
-      Reverb.erbui
+      Sampler.erbui
       Copyright (c) 2020 Raphael DINGE
 
 *Tab=3***********************************************************************/
 
 
 
-module Reverb {
+module Sampler {
    board kivu12
    material aluminum
-   header { label "REVERB" }
+   header { label "SAMPLER" }
 
    control low_pass_freq_pot Pot {
       position 8.66hp, 28mm

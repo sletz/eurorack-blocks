@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-      ReverbDsp.cpp
+      SamplerDsp.cpp
       Copyright (c) 2020 Raphael DINGE
 
 *Tab=3***********************************************************************/
@@ -9,7 +9,7 @@
 
 /*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-#include "ReverbDsp.h"
+#include "SamplerDsp.h"
 
 
 
@@ -21,7 +21,7 @@ Name : ctor
 ==============================================================================
 */
 
-ReverbDsp::ReverbDsp (float sample_freq, AuxiliaryBuffer & aux_buffer)
+SamplerDsp::SamplerDsp (float sample_freq, AuxiliaryBuffer & aux_buffer)
 :  _reverb (sample_freq, aux_buffer)
 {
    _wet.target = 0.f;
@@ -49,7 +49,7 @@ Name : set_wet
 ==============================================================================
 */
 
-void  ReverbDsp::set_wet (float wet)
+void  SamplerDsp::set_wet (float wet)
 {
    _wet.target = wet;
 }
@@ -62,7 +62,7 @@ Name : set_feedback
 ==============================================================================
 */
 
-void  ReverbDsp::set_feedback (float feedback)
+void  SamplerDsp::set_feedback (float feedback)
 {
    _reverb.set_feedback (feedback);
 }
@@ -75,7 +75,7 @@ Name : set_low_pass_freq
 ==============================================================================
 */
 
-void  ReverbDsp::set_low_pass_freq (float freq)
+void  SamplerDsp::set_low_pass_freq (float freq)
 {
    for (auto & filter : _filters_lp) filter.set_freq (freq);
 }
@@ -88,7 +88,7 @@ Name : set_high_pass_freq
 ==============================================================================
 */
 
-void  ReverbDsp::set_high_pass_freq (float freq)
+void  SamplerDsp::set_high_pass_freq (float freq)
 {
    for (auto & filter : _filters_hp) filter.set_freq (freq);
 }
@@ -101,7 +101,7 @@ Name : process
 ==============================================================================
 */
 
-void  ReverbDsp::process (float * const out [], const float * const in [], size_t size)
+void  SamplerDsp::process (float * const out [], const float * const in [], size_t size)
 {
    for (auto & filter : _filters_lp) filter.update ();
    for (auto & filter : _filters_hp) filter.update ();

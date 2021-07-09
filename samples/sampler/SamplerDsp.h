@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-      ReverbDsp.h
+      SamplerDsp.h
       Copyright (c) 2020 Raphael DINGE
 
 *Tab=3***********************************************************************/
@@ -15,23 +15,23 @@
 
 #include "dsp/Filter2Poles.h"
 #include "dsp/GainRamp.h"
-#include "dsp/ReverbSc.h"
+#include "dsp/SamplerSc.h"
 
 #include <array>
 #include <cstddef>
 
 
 
-class ReverbDsp
+class SamplerDsp
 {
 
 /*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 public:
-   using AuxiliaryBuffer = dsp::ReverbSc::DelayLines;
+   using AuxiliaryBuffer = dsp::SamplerSc::DelayLines;
 
-                  ReverbDsp (float sample_freq, AuxiliaryBuffer & aux_buffer);
-   /*virtual*/    ~ReverbDsp () = default;
+                  SamplerDsp (float sample_freq, AuxiliaryBuffer & aux_buffer);
+   /*virtual*/    ~SamplerDsp () = default;
 
    void           set_wet (float wet);
    void           set_feedback (float feedback);
@@ -63,24 +63,24 @@ private:
    dsp::GainRamp  _wet;
    Filters        _filters_lp;
    Filters        _filters_hp;
-   dsp::ReverbSc  _reverb;
+   dsp::SamplerSc  _reverb;
 
 
 
 /*\\\ FORBIDDEN MEMBER FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 private:
-                  ReverbDsp () = delete;
-                  ReverbDsp (const ReverbDsp & rhs) = delete;
-                  ReverbDsp (ReverbDsp && rhs) = delete;
-   ReverbDsp &    operator = (const ReverbDsp & rhs) = delete;
-   ReverbDsp &    operator = (ReverbDsp && rhs) = delete;
-   bool           operator == (const ReverbDsp & rhs) const = delete;
-   bool           operator != (const ReverbDsp & rhs) const = delete;
+                  SamplerDsp () = delete;
+                  SamplerDsp (const SamplerDsp & rhs) = delete;
+                  SamplerDsp (SamplerDsp && rhs) = delete;
+   SamplerDsp &    operator = (const SamplerDsp & rhs) = delete;
+   SamplerDsp &    operator = (SamplerDsp && rhs) = delete;
+   bool           operator == (const SamplerDsp & rhs) const = delete;
+   bool           operator != (const SamplerDsp & rhs) const = delete;
 
 
 
-}; // class ReverbDsp
+}; // class SamplerDsp
 
 
 

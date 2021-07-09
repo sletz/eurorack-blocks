@@ -1,6 +1,6 @@
 ##############################################################################
 #
-#     reverb.gyp
+#     sampler.gyp
 #     Copyright (c) 2020 Raphael DINGE
 #
 #Tab=3########################################################################
@@ -18,25 +18,16 @@
 
    'targets' : [
       {
-         'target_name': 'reverb',
+         'target_name': 'sampler',
          'type': 'none',
 
          'direct_dependent_settings': {
             'sources': [
-               'Reverb.cpp',
-               'Reverb.h',
-               'ReverbDsp.cpp',
-               'ReverbDsp.h',
-               'Reverb.erbui',
-
-               '../dsp/Filter2Poles.cpp',
-               '../dsp/Filter2Poles.h',
-               '../dsp/Filter2Poles.hpp',
-               '../dsp/GainRamp.cpp',
-               '../dsp/GainRamp.h',
-               '../dsp/GainRamp.hpp',
-               '../dsp/ReverbSc.cpp',
-               '../dsp/ReverbSc.h',
+               'Sampler.cpp',
+               'Sampler.h',
+               'SamplerDsp.cpp',
+               'SamplerDsp.h',
+               'Sampler.erbui',
             ],
 
             'include_dirs': [
@@ -46,17 +37,17 @@
       },
 
       {
-         'target_name': 'reverb-daisy',
+         'target_name': 'sampler-daisy',
          'type': 'executable',
 
-         'dependencies': [ 'reverb', 'erb-daisy' ],
+         'dependencies': [ 'sampler', 'erb-daisy' ],
       },
 
       {
-         'target_name': 'reverb-vcvrack',
+         'target_name': 'sampler-vcvrack',
          'type': 'shared_library',
 
-         'dependencies': [ 'reverb', 'erb-vcvrack' ],
+         'dependencies': [ 'sampler', 'erb-vcvrack' ],
       },
    ],
 }

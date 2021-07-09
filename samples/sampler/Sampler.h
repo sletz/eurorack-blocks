@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-      Reverb.h
+      Sampler.h
       Copyright (c) 2020 Raphael DINGE
 
 *Tab=3***********************************************************************/
@@ -9,8 +9,8 @@
 
 /*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-#include "ReverbDsp.h"
-#include "artifacts/ReverbUi.h"
+#include "SamplerDsp.h"
+#include "artifacts/SamplerUi.h"
 
 #include "erb/erb.h"
 
@@ -18,15 +18,15 @@
 
 /*\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-struct Reverb
+struct Sampler
 {
-   // Construct the auxiliary buffer of the Reverb DSP (here the delay lines)
+   // Construct the auxiliary buffer of the Sampler DSP (here the delay lines)
    // into an SdramObject, that will be at the right place in memory.
-   erb::SdramObject <ReverbDsp::AuxiliaryBuffer> object
-      = erb::make_sdram_object <ReverbDsp::AuxiliaryBuffer> ();
+   erb::SdramObject <SamplerDsp::AuxiliaryBuffer> object
+      = erb::make_sdram_object <SamplerDsp::AuxiliaryBuffer> ();
 
-   ReverbDsp dsp { erb_SAMPLE_RATE, *object };
-   ReverbUi ui;
+   SamplerDsp dsp { erb_SAMPLE_RATE, *object };
+   SamplerUi ui;
 
    void  process ();
 };

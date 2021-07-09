@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-      Reverb.cpp
+      Sampler.cpp
       Copyright (c) 2020 Raphael DINGE
 
 *Tab=3***********************************************************************/
@@ -9,7 +9,7 @@
 
 /*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-#include "Reverb.h"
+#include "Sampler.h"
 
 #include <cmath>
 
@@ -21,7 +21,7 @@ Name : process
 ==============================================================================
 */
 
-void  Reverb::process ()
+void  Sampler::process ()
 {
    float wet
       = float (ui.wet_pot)
