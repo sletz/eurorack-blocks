@@ -43,7 +43,7 @@ class Project:
       template = self.replace_section (template, module);
       template = self.replace_defines (template, module.defines);
       template = self.replace_bases (template, module.bases);
-      template = self.replace_sources (template, module.sources, path);
+      template = self.replace_sources (template, module, module.sources, path);
 
       with open (path_cpp, 'w') as file:
          file.write (template)
@@ -101,12 +101,17 @@ class Project:
 
    #--------------------------------------------------------------------------
 
-   def replace_sources (self, template, sources, path):
+   def replace_sources (self, template, module, sources, path):
       lines = ''
 
       for source in sources:
          for file in source.files:
             file_path = os.path.relpath (file.path, path)
             lines += '            \'%s\',\n' % file_path
+
+      if module.source_language == 'faust':
+         lines += '            \'artifacts/%s.h\',\n' % module.name
+         lines += '            \'artifacts/%s.hpp\',\n' % module.name
+         lines += '            \'artifacts/module_faust.h\',\n'
 
       return template.replace ('%           sources.entities%', lines)
