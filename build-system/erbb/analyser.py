@@ -90,6 +90,14 @@ class Analyser:
       elif nbr_files > 1:
          raise error.multiple_definition (data, files)
 
+      fausts = [e for e in data.entities if e.is_faust]
+      nbr_fausts = len (fausts)
+
+      if nbr_fausts > 1:
+         raise error.multiple_definition (data, fausts)
+
+      self.analyse_faust (fausts [0])
+
       streams = [e for e in data.entities if e.is_stream]
       nbr_streams = len (streams)
 
@@ -104,3 +112,31 @@ class Analyser:
 
       elif nbr_streams > 1:
          raise error.multiple_definition (data, streams)
+
+   #--------------------------------------------------------------------------
+
+   def analyse_faust (self, faust):
+      assert faust.is_faust
+
+      binds = [e for e in faust.entities if e.is_faust_bind]
+      nbr_binds = len (binds)
+
+      if nbr_binds == 0:
+         raise error.missing_required (faust, ast.FaustBind)
+      elif nbr_binds > 1:
+         raise error.multiple_definition (faust, binds)
+
+      self.analyse_faust_bind (self, binds [0])
+
+   #--------------------------------------------------------------------------
+
+   def analyse_faust_bind (self, faust_bind):
+      assert faust_bind.is_faust_bind
+
+      addresses = [e for e in faust_bind.entities if e.is_faust_address]
+      nbr_addresses = len (addresses)
+
+      if nbr_addresses == 0:
+         raise error.missing_required (faust_bind, ast.FaustAddress)
+      elif nbr_addresses > 1:
+         raise error.multiple_definition (faust_bind, addresses)
