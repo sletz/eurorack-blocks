@@ -136,7 +136,7 @@ class Code:
       with open (faust_dsp_json) as f:
          faust_json = json.load (f)
 
-      os.remove (faust_dsp_json)
+      #os.remove (faust_dsp_json)
 
       faust_dsp = self.generate_faust_dsp (faust_json)
 
@@ -222,8 +222,13 @@ class Code:
 
       path_rel_root = os.path.relpath (PATH_ROOT, path)
 
+      soundfile_widgets = [e for e in faust_dsp.widgets if e.type_ == 'soundfile']
+
       template = template.replace ('%module.name%', module_erbb.name)
-      template = template.replace ('%faust.widgets.length%',str (len (faust_dsp.widgets)))
+      template = template.replace ('%faust.widgets.length%', str (len (faust_dsp.widgets)))
+      template = template.replace ('%module.samples.length%', str (len (soundfile_widgets)))
+      template = template.replace ('%     module.spl_adapters%', self.generate_module_declaration_spl_adapter (faust_dsp, module_erbb))
+      template = template.replace ('%     module.samples%', self.generate_module_declaration_samples (faust_dsp, module_erbb))
 
       with open (path_output, 'w') as file:
          file.write (template)
@@ -253,6 +258,46 @@ class Code:
             print (control.kind)
             assert (False)
 
+      return content
+
+   #--------------------------------------------------------------------------
+
+   def generate_module_declaration_spl_adapter (self, faust_dsp, module_erbb):
+      content = ''
+      for index, widget in enumerate (faust_dsp.widgets):
+         if widget.type_ in ['soundfile']:
+            if widget.address in module_erbb.faust_addresses:
+               address_object = module_erbb.faust_addresses [widget.address]
+               name = address_object.name
+               content += '      {\n'
+               content += '         .channels = { &%sData::%s.channels [0].samples [0] },\n' % (module_erbb.name, name)
+               content += '         .nbr_channels = int (%sData::%s.channels.size ()),\n' % (module_erbb.name, name)
+               content += '         .length = int (%sData::%s.channels [0].samples.size ()),\n' % (module_erbb.name, name)
+               content += '         .sample_rate = int (%sData::%s.sample_rate)\n' % (module_erbb.name, name)
+               content += '      }\n'
+            else:
+               err = error.Error ()
+               context = module_erbb.source_context
+               err.add_error ("Soundfile '%s' is not mapped" % (widget.address), context)
+               err.add_context (context)
+               raise error
+      return content
+
+   #--------------------------------------------------------------------------
+
+   def generate_module_declaration_samples (self, faust_dsp, module_erbb):
+      content = ''
+      for index, widget in enumerate (faust_dsp.widgets):
+         if widget.type_ in ['soundfile']:
+            address_object = module_erbb.faust_addresses [widget.address]
+            name = address_object.name
+            content += '      {\n'
+            content += '         .fBuffers = const_cast <float **> (&spl_adapter [%d].channels [0]),\n' % index
+            content += '         .fLength = &spl_adapter [%d].length,\n' % index
+            content += '         .fSR = &spl_adapter [%d].sample_rate,\n' % index
+            content += '         .fOffset = &offset_zero,\n'
+            content += '         .fChannels = spl_adapter [%d].nbr_channels\n' % index
+            content += '      }\n'
       return content
 
 

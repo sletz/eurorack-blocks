@@ -119,9 +119,10 @@ Name : addSoundfile
 ==============================================================================
 */
 
-void  Adapter::addSoundfile (const char * label_0 , const char * /* filename_0 */, Soundfile ** sf_zone)
+void  Adapter::addSoundfile (const char * /* label_0 */ , const char * /* filename_0 */, Soundfile ** sf_zone)
 {
-//%  module.data_entities%
+   *sf_zone = &samples [spl_index];
+   ++spl_index;
 }
 
 

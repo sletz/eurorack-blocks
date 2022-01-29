@@ -72,7 +72,23 @@ struct Adapter
    size_t decl_index = 0;
    std::array <float *, %faust.widgets.length%> parameters;
 
-//%  module.data_entities%
+   struct SoundfileAdapter {
+      std::array <const float *, 64> channels;
+      int nbr_channels;
+      int length;
+      int sample_rate;
+   };
+
+   std::array <SoundfileAdapter, %module.samples.length%> spl_adapter = {{
+%     module.spl_adapters%
+   }};
+
+   int offset_zero = 0;
+   size_t spl_index = 0;
+
+   std::array <Soundfile, %module.samples.length%> samples = {{
+%     module.samples%
+   }};
 };
 
 struct dsp_memory_manager
@@ -87,7 +103,9 @@ struct dsp_memory_manager
 
 /*\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-struct dsp {};
+struct dsp {
+   Soundfile * defaultsound = nullptr;
+};
 
 using UI = Adapter;
 class Meta
