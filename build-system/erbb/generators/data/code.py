@@ -139,7 +139,7 @@ class Code:
          elif data.stream.format == 'interleaved':
             content = self.generate_declaration_data_audio_sample_interleaved (file, data) (file.frames, file.channels, data.name)
          elif data.stream.format == 'planar':
-            content = self.generate_declaration_data_audio_sample_planar (file, data) file.channels, data.name)
+            content = self.generate_declaration_data_audio_sample_planar (file, data)
          elif data.stream.format == 'mono':
             content = self.generate_declaration_data_audio_sample_mono (file, data)
          else:
