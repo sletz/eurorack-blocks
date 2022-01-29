@@ -12,4 +12,11 @@ module FaustGuitarEffectChain {
       file "FaustGuitarEffectChain.dsp"
       file "FaustGuitarEffectChain.erbui"
    }
+
+   resources {
+      data foo AudioSample {
+         file "foo.wav"
+         faust { bind { address "/FaustGuitarEffectChain/foo" }}
+      }
+   }
 }
