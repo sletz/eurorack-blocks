@@ -153,6 +153,7 @@ class Module (Scope):
       super (Module, self).__init__ ()
       self.identifier = identifier
       self.source_language = 'cpp'
+      self.faust_addresses = {}
 
    @staticmethod
    def typename (): return 'module'
