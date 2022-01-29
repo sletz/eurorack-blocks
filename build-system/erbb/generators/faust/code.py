@@ -285,7 +285,7 @@ class Code:
                   content += '         .nbr_channels = %d,\n' % file.channels
                   content += '         .length = %d,\n' % file.frames
                   content += '         .sample_rate = %d\n' % file.samplerate
-                  content += '      }\n'
+                  content += '      },\n'
             else:
                err = error.Error ()
                context = module_erbb.source_context
@@ -308,7 +308,7 @@ class Code:
             content += '         .fSR = &spl_adapter [%d].sample_rate,\n' % index
             content += '         .fOffset = &offset_zero,\n'
             content += '         .fChannels = spl_adapter [%d].nbr_channels\n' % index
-            content += '      }\n'
+            content += '      },\n'
       return content
 
 
