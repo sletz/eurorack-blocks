@@ -137,7 +137,7 @@ class Code:
       with open (faust_dsp_json) as f:
          faust_json = json.load (f)
 
-      #os.remove (faust_dsp_json)
+      os.remove (faust_dsp_json)
 
       faust_dsp = self.generate_faust_dsp (faust_json)
 
