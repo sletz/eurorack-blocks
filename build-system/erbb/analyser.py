@@ -126,7 +126,7 @@ class Analyser:
       elif nbr_binds > 1:
          raise error.multiple_definition (faust, binds)
 
-      self.analyse_faust_bind (self, binds [0])
+      self.analyse_faust_bind (binds [0])
 
    #--------------------------------------------------------------------------
 
