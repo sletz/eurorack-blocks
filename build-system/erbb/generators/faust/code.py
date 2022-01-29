@@ -11,6 +11,7 @@ import json
 import math
 import os
 import subprocess
+from soundfile import SoundFile
 
 from ... import error
 
@@ -269,12 +270,22 @@ class Code:
             if widget.address in module_erbb.faust_addresses:
                address_object = module_erbb.faust_addresses [widget.address]
                name = address_object.name
-               content += '      {\n'
-               content += '         .channels = { &%sData::%s.channels [0].samples [0] },\n' % (module_erbb.name, name)
-               content += '         .nbr_channels = int (%sData::%s.channels.size ()),\n' % (module_erbb.name, name)
-               content += '         .length = int (%sData::%s.channels [0].samples.size ()),\n' % (module_erbb.name, name)
-               content += '         .sample_rate = int (%sData::%s.sample_rate)\n' % (module_erbb.name, name)
-               content += '      }\n'
+               try:
+                  file = SoundFile (address_object.data.file.path)
+               except OSError:
+                  err = error.Error ()
+                  context = address_object.data.file.source_context
+                  err.add_error ("File '%s' not found" % context, context)
+                  err.add_context (context)
+                  raise err
+               with file:
+                  channels = ', '.join (map (lambda x: '&%sData::%s.channels [%d].samples [0]' % (module_erbb.name, name, x) , range (file.channels)))
+                  content += '      {\n'
+                  content += '         .channels = { %s },\n' % channels
+                  content += '         .nbr_channels = %d,\n' % file.channels
+                  content += '         .length = %d,\n' % file.frames
+                  content += '         .sample_rate = %d\n' % file.samplerate
+                  content += '      }\n'
             else:
                err = error.Error ()
                context = module_erbb.source_context
