@@ -264,14 +264,14 @@ class Analyser:
          faust = ast.ControlFaust ()
          if len (properties) == 0:
             bind = ast.FaustBind ()
-            address_value = '/' + control.name
+            address_value = '/' + module.name + '/' + control.name
             address = ast.FaustAddress (ast.StringLiteral.synthesize (address_value))
             bind.add (address)
             faust.add (bind)
          else:
             for property in properties:
                bind = ast.FaustBind ()
-               address_value = '/' + control.name + '.' + property
+               address_value = '/' + module.name + '/' + control.name + '.' + property
                address = ast.FaustAddress (ast.StringLiteral.synthesize (address_value))
                bind.add (address)
                faust.add (bind)
