@@ -85,14 +85,13 @@ Let's update `LowPass.dsp` to add our filter:
 ```{code-block} faust
 ---
 lineno-start: 1
-emphasize-lines: 3, 5, 6
+emphasize-lines: 3, 4, 5
 ---
 // LowPass.dsp
 
 import("stdfaust.lib");
-
 fc = hslider("freq", 1000, 100, 10000, 1);
-process = _ : resonlp(fc,1,0) : _
+process = fi.resonlp(fc,1,0.8);
 ```
 
 We are using a `hslider` which delivers a continuous value, which is what we want. Note
