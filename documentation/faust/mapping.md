@@ -46,9 +46,10 @@ process = dm.phaser2_demo;
 
 If you build the project now, the `erbui` transpiler will complain that you have the wrong
 number of audio inputs and outputs.
-This is because the default FAUST
+This is because `dm.phaser2_demo` is a stereo effect and `erbb faust init` generated
+by default a mono input/output effect.
 
-Let's first fix this by adding more inputs at the end of our `erbui` file:
+Let's first fix this quickly by adding one more audio input and output  at the end of our `erbui` file:
 
 ```{code-block} erbui
 ---
