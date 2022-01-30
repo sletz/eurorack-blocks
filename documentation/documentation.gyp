@@ -41,6 +41,8 @@
             'guides/kick.md',
             'guides/reverb.md',
 
+            'faust/setup.md',
+
             'erbb/lexical.md',
             'erbb/grammar.md',
 
