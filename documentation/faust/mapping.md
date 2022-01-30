@@ -36,7 +36,7 @@ and change the dsp file like the following:
 ```{code-block} faust
 ---
 lineno-start: 1
-emphasize-lines: 3, 4
+emphasize-lines: 3-4
 ---
 // Phaser.dsp
 
@@ -49,12 +49,12 @@ number of audio inputs and outputs.
 This is because `dm.phaser2_demo` is a stereo effect and `erbb faust init` generated
 by default a mono input/output effect.
 
-Let's first fix this quickly by adding one more audio input and output  at the end of our `erbui` file:
+Let's first fix this quickly by adding one more audio input and output at the end of our `erbui` file, and rearranging the layout of those audio jack connectors:
 
 ```{code-block} erbui
 ---
 lineno-start: 1
-emphasize-lines: 15-19, 27-31
+emphasize-lines: 10, 15-19, 22, 27-31
 ---
 // Phaser.erbui
 
@@ -89,7 +89,7 @@ module Phaser {
    }
 ```
 
-Now, let's build the project. If you go to the build logs, you will see the following:
+Now, let's build the project. If you go to your IDE build logs, you will see the following:
 
 ```
 warning: non mapped checkbox /PHASER2/0x00/Bypass
@@ -114,7 +114,7 @@ They represent the list of all values in FAUST that do not have a mapping in `er
 `/PHASER2/0x00/Bypass` represents an address in FAUST.
 This what is used to control FAUST using OSC for example. 
 
-Let's say we want to map the Phaser speed to a control in `erbui`.
+Let's say we want to bind the Phaser speed to a control in `erbui`.
 You do this by adding a FAUST binding, using its FAUST address:
 
 ```{code-block} erbui
@@ -133,13 +133,13 @@ emphasize-lines: 2
 You can now build again the project, and you will see that the warning for the phaser
 speed has disappeared. Those warnings are handy, because you get to see what is mapped or not.
 
-But wait! In our first example, we didn't use any of this FAUST address binding.
-How could it work?
+But wait! In our first example, {doc}`/faust/first`, we didn't use any of this FAUST address binding.
+How could this possibly work?
 
 This is the "syntactic sugar" we were talking about in the previous chapter:
-when you don't declare a binding, Eurorack-blocks will synthetize it for you.
+when you don't declare a binding, Eurorack-blocks will synthetize one for you.
 It created implicitely a line like the following, which happens to match the
-FAUST generated `freq` primitive address.
+FAUST generated `freq` primitive address, as long as the label is local to the FAUST dsp file.
 
 ```{code-block} erbui
 ---
@@ -154,29 +154,30 @@ emphasize-lines: 2
 
 ## Custom value initialization
 
-We can go on and map all the primitive we want in FAUST in a control in `erbui`.
-
+We can go on and map all the primitives we want in FAUST with a control in `erbui`.
 But now we might come to the point where either we don't have enough space in our
-Eurorack module to put another control, or more simply, that we don't want to map
-a FAUST primitive to a Eurorack control.
+Eurorack module to put another control,
+or better, if we planned our design rigorously, that we want to map
+only a subset of the FAUST primitives to physical Eurorack controls.
 
-Inside the imported FAUST library, we might have something like this:
+Inside an imported FAUST library, we might have source code like the following:
 
 ```{code-block} faust
 fc = hslider("freq", 1000, 100, 10000, 1);
 ```
 
-So that means that the default value for this control, if we don't map it, would be 1000Hz.
-Now let's say that we want it to be 80Hz.
+So that means that the default value for this FAUST primitive,
+if we don't bind it, would be 1000Hz.
+Now let's say that we want it to be 80Hz by default.
 We can do this by specifying a FAUST init value for the address of this primitive.
-
-As an example, let's say we want to set the default value of the Phaser Min Notch1 Freq
-to 80Hz:
+How can we do this?
+With our Phaser module example,
+let's say we want to set the default value of "Phaser Min Notch1 Freq" to 80Hz:
 
 ```{code-block} erbui
 ---
 lineno-start: 1
-emphasize-lines: 9, 10, 11
+emphasize-lines: 9-11
 ---
 // Phaser.erbui
 
@@ -198,12 +199,14 @@ module Phaser {
    }
 ```
 
-You can now build again the project, and you will see that the warning for the phaser
-min notch1 frequency has disappeared.
+Note that this definition is done at module scope.
+You can now build again the project, and you will see that the warning for
+"Phaser Min Notch1 Freq" has disappeared.
 
-So finally, normally when you have finished mapping all primitives, you shouldn't see
-any warning. If the default value was actually good for you, just copy its value to make
-the warning go away.
+Those warnings are helpful, because they allow you to go systematically through
+every FAUST primitives: you either bind them or give them an initial value explicitly.
+Should the default value of the imported library be at the correct value already,
+you can  just use the "init" value of the primitive in the library to make the warning go away.
 
 
 ## Compound property binding
@@ -211,15 +214,14 @@ the warning go away.
 As we said in the introduction, all FAUST primitives represent scalar values.
 But at the same time, some `erbui` controls can have more than one property!
 How can we map that?
-
 For this, we just need to specify the `property` in our binding.
-
-Let's say that we have 2 `vbargraph` with label "LED Red" and "LED Green":
+Let's say that we have 2 `vbargraph` with label "LED Red" and "LED Green".
+We just need to specify a specific property in our binding:
 
 ```{code-block} erbui
 ---
 lineno-start: 1
-emphasize-lines: 2, 3, 4, 5
+emphasize-lines: 2-5
 ---
    control led_bi LedBi {
       faust {
@@ -232,9 +234,11 @@ emphasize-lines: 2, 3, 4, 5
    }
 ```
 
-Just for the sake of completion, let's say that you would want to give a specific value
-to a property. You can use the same `init` syntax, but inside the control rather than
-at the module scope for that:
+Just for the sake of completion (most likely you will never need to use that),
+this works with `init` too!
+Let's say that you would want to give a specific value to a property.
+You can use the same `init` syntax we used at module scope,
+but inside the control rather than the module:
 
 ```{code-block} erbui
 ---
@@ -252,4 +256,4 @@ emphasize-lines: 4
    }
 ```
 
-That's it! This chapter cover most of your needs for using FAUST with Eurorack-blocks.
+That's it! This chapter cover most of your needs when using FAUST with Eurorack-blocks.
