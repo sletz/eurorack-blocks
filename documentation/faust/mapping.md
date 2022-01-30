@@ -169,7 +169,7 @@ fc = hslider("freq", 1000, 100, 10000, 1);
 So that means that the default value for this FAUST primitive,
 if we don't bind it, would be 1000Hz.
 Now let's say that we want it to be 80Hz by default.
-We can do this by specifying a FAUST init value for the address of this primitive.
+We can do this by specifying a FAUST initial value for the address of this primitive.
 How can we do this?
 With our Phaser module example,
 let's say we want to set the default value of "Phaser Min Notch1 Freq" to 80Hz:
@@ -199,8 +199,8 @@ module Phaser {
    }
 ```
 
-Note that this definition is done at module scope.
-You can now build again the project, and you will see that the warning for
+Note that this definition is done at `module` scope.
+You can now build the project again, and you will see that the warning for
 "Phaser Min Notch1 Freq" has disappeared.
 
 Those warnings are helpful, because they allow you to go systematically through
