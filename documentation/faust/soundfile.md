@@ -38,23 +38,24 @@ If you don't want to put your audio samples in the root of your project, you can
 create, let's say, a `media` folder and put the audio file in it. In this case we would
 have wrote `file "media/kick.wav"` above.
 
-The line with `section qspi` is a bit different. You can read more about it in the {doc}`../guides/kick` chapter of this manual.
-In a nutshell, if you have very small samples around a Kilobyte, you don't nee this line.
+The line `section qspi` is a whole topic in itself.
+You can read more about it in the {doc}`../guides/kick` chapter of this manual.
+In a nutshell, if you have very small samples around a few Kilobytes, you won't need this line.
 But if you are using bigger samples, you will need it, knowing that the sum of all
-samples should be a bit below 8MB.
+samples should be a bit below 8MB at most.
 
 So now let's consider the following program, which plays our sample in a loop.
 
 ```{code-block} faust
 ---
 lineno-start: 1
-emphasize-lines: 3, 4
+emphasize-lines: 3-5
 ---
-// Phaser.dsp
+// Kick.dsp
 
 import("stdfaust.lib");
 s = soundfile("kick",2);
-process = so.loop() <: _,_ ;;
+process = so.loop() <: _,_ ;
 ```
 
 Same as for UI controls, the binding will be automatic, because we can synthetise it.
@@ -74,7 +75,7 @@ emphasize-lines: 4
    }
 ```
 
-And that's it! Eurorack-blocks will take care of everything for you.
+And that's it! Eurorack-blocks will take care of all the rest for you.
 
 
 ## Soundfile parts support (coming soon)
@@ -89,13 +90,12 @@ process = 0,_~+(1):soundfile("sound[url:{'foo.wav';'bar.wav'}]",2):!,!,_,_;
 
 In this example, `foo.wav` and `bar.wav` are virtually consolidated to a single audio file
 with 2 parts.
-
-Though you might have seen that we never specify the `url` attributes in the section above.
+Though, you might have seen that we never specify the `url` attributes in the section above.
 That's because we ignore it.
 
 Rather, the support of parts is done using `wav` with what is known as "Cue" or "Splice"
-markers, which are supported by every sample editors, and even some DAWs support it
-as well.
+markers, which are supported by every common sample editors,
+and even some DAWs have native support for it.
 
 This also allows you to be able to load directly all samples to this format that is used
-also in the Eurorack industry, and in particular the excellent Morphagene module from MakeNoise. A lot of samples already in that format can be found for example on [Freesound](https://freesound.org/people/makenoisemusic/).
+also in the Eurorack industry, and in particular in the excellent Morphagene module from Make Noise. A lot of samples already in that format can be found for example on [Freesound](https://freesound.org/people/makenoisemusic/).
