@@ -94,6 +94,7 @@ C++ is not your thing and you prefer to use FAUST instead?
 Continue here to learn how to create your own module using FAUST.
 
 - **{doc}`/faust/setup`**
+- **{doc}`/faust/first`**
 
 ```{eval-rst}
 .. toctree::
@@ -102,6 +103,7 @@ Continue here to learn how to create your own module using FAUST.
    :caption: FAUST Integration
 
    /faust/setup
+   /faust/first
 ```
 
 
