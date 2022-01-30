@@ -42,6 +42,7 @@
             'guides/reverb.md',
 
             'faust/first.md',
+            'faust/mapping.md',
             'faust/setup.md',
 
             'erbb/lexical.md',

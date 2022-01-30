@@ -95,6 +95,7 @@ Continue here to learn how to create your own module using FAUST.
 
 - **{doc}`/faust/setup`**
 - **{doc}`/faust/first`**
+- **{doc}`/faust/mapping`**
 
 ```{eval-rst}
 .. toctree::
@@ -104,6 +105,7 @@ Continue here to learn how to create your own module using FAUST.
 
    /faust/setup
    /faust/first
+   /faust/mapping
 ```
 
 
