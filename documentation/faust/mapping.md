@@ -112,7 +112,7 @@ just can also build with `erbb build simulator` instead from your terminal.
 
 They represent the list of all values in FAUST that do not have a mapping in `erbui`.
 `/PHASER2/0x00/Bypass` represents an address in FAUST.
-This what is used to control FAUST using OSC for example. 
+This is what is used to control FAUST using OSC for example.
 
 Let's say we want to bind the Phaser speed to a control in `erbui`.
 You do this by adding a FAUST binding, using its FAUST address:
