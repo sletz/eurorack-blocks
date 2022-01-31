@@ -1,7 +1,7 @@
 # Soundfile Mapping
 
 In the previous chapter, we've seen how to map `erbui` controls to FAUST UI primitives.
-We need know to talk about the  `soundfile` primitive,
+We need know to talk about the [soundfile](https://faustdoc.grame.fr/manual/syntax/#soundfile-primitive) primitive,
 which allows you to use audio samples in FAUST.
 
 

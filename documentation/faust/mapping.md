@@ -1,6 +1,6 @@
 # Name Mapping System
 
-In the previous chapter, we've seen that we can have a FAUST primitive with a label, and use
+In the previous chapter, we've seen that we can have a FAUST control primitive with a label, and use
 the same label as a control name in `erbui` to make the mapping.
 This is convenient as long as your `process` only references local labels in the file.
 But this falls short in a certain number of cases, but don't worry! Every cases are handled
@@ -111,8 +111,7 @@ just can also build with `erbb build simulator` instead from your terminal.
 ```
 
 They represent the list of all values in FAUST that do not have a mapping in `erbui`.
-`/PHASER2/0x00/Bypass` represents an address in FAUST.
-This is what is used to control FAUST using OSC for example.
+`/PHASER2/0x00/Bypass` represents a control path in FAUST, which can be used with OSC for example.
 
 Let's say we want to bind the Phaser speed to a control in `erbui`.
 You do this by adding a FAUST binding, using its FAUST address:
@@ -167,7 +166,10 @@ fc = hslider("freq", 1000, 100, 10000, 1);
 ```
 
 So that means that the default value for this FAUST primitive,
-if we don't bind it, would be 1000Hz.
+if we don't bind it, would be 1000Hz. Indeed in the FAUST syntax, several controls 
+like [hslider](https://faustdoc.grame.fr/manual/syntax/#hslider-primitive), [vslider](https://faustdoc.grame.fr/manual/syntax/#vslider-primitive) and [nentry](https://faustdoc.grame.fr/manual/syntax/#nentry-primitive) have default, min and max values.
+
+
 Now let's say that we want it to be 80Hz by default.
 We can do this by specifying a FAUST initial value for the address of this primitive.
 How can we do this?

@@ -16,7 +16,7 @@ You then only need minimum knowledge on how the terminal works to get going.
 
 ## Setting up FAUST
 
-FAUST comes with some programs, but also its headers, and it should be configured so
+The FAUST compiler comes with some additional programs, but also a set of headers, and it should be configured so
 that FAUST headers are available to the development environment.
 
 In general it is best to install it with your package manager. This will make sure that both
@@ -55,7 +55,7 @@ Install by running the script below:
 ~/eurorack-blocks$ ./build-system/install.py
 ```
 
-This will add the `erbb` script to your `PATH`.
+This will add the `erbb` script to your `PATH`. Be sure to start a new terminal to use the new configuation.
 
 ```shell-session
 ~/eurorack-blocks$ erbb setup

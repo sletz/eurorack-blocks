@@ -94,12 +94,12 @@ fc = hslider("freq", 1000, 100, 10000, 1);
 process = fi.resonlp(fc,1,0.8);
 ```
 
-We are using a `hslider` which delivers a continuous value, which is what we want. Note
-that we could have used `vslider` and that wouldn't change a thing:
+We are using a [hslider](https://faustdoc.grame.fr/manual/syntax/#hslider-primitive) which delivers a continuous control value, which is what we want. Note
+that we could have used [vslider](https://faustdoc.grame.fr/manual/syntax/#vslider-primitive) and that wouldn't change a thing:
 that's because Eurorack-blocks ignores all layout and appearance information dictated from
 the FAUST dsp file. Instead, the `erbui` content is used.
 
-Finally, `hslider` is using the label `freq` exactly like it was defined in our `erbui` file:
+Finally, `hslider` is using the label `FREQ` exactly like it was defined in our `erbui` file:
 
 ```{code-block} erbui
 ---

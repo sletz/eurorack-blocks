@@ -90,7 +90,7 @@ Continue here to learn how to create your own module.
 
 ## FAUST Integration
 
-C++ is not your thing and you prefer to use FAUST instead?
+C++ is not your thing and you prefer to use [FAUST](https://faust.grame.fr), a functional programming language for sound synthesis and audio processing instead?
 Continue here to learn how to create your own module using FAUST.
 
 - **{doc}`/faust/setup`**
